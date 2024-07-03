@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3 uid="uid://ckg5eplkbe4j2"]
+
+[ext_resource type="Script" path="res://Scenes/game_scene.gd" id="1_4r886"]
+[ext_resource type="Texture2D" uid="uid://dgek5hc7vcwp1" path="res://Sprites/background.png" id="1_fr1uv"]
+[ext_resource type="PackedScene" uid="uid://dfbih1iyk3brw" path="res://Scenes/bird.tscn" id="1_srvpb"]
+[ext_resource type="PackedScene" uid="uid://bdrbb3hnwgrj7" path="res://Scenes/pipes.tscn" id="2_ne63m"]
+[ext_resource type="Texture2D" uid="uid://bxtjo47fowavy" path="res://Sprites/ground.png" id="4_r7oe5"]
+[ext_resource type="FontFile" uid="uid://brrdwmt8gkn78" path="res://Fonts/BD_Cartoon_Shout.ttf" id="6_dcchx"]
+
+[node name="Game_scene" type="Node2D"]
+script = ExtResource("1_4r886")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(351, 401)
+scale = Vector2(0.9125, 1.7)
+texture = ExtResource("1_fr1uv")
+
+[node name="clifs_nodes" type="Node2D" parent="."]
+
+[node name="Pipes" parent="clifs_nodes" instance=ExtResource("2_ne63m")]
+position = Vector2(630, 815)
+scale = Vector2(1, 2)
+
+[node name="Small_cliffs" type="Sprite2D" parent="."]
+position = Vector2(351, 772)
+scale = Vector2(0.445545, 1)
+texture = ExtResource("4_r7oe5")
+
+[node name="markers" type="Node2D" parent="."]
+
+[node name="down_marker" type="Marker2D" parent="markers"]
+position = Vector2(900, 815)
+
+[node name="up_marker" type="Marker2D" parent="markers"]
+position = Vector2(900, -10)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.25
+
+[node name="Bird" parent="." instance=ExtResource("1_srvpb")]
+position = Vector2(78, 400)
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 285.0
+offset_top = 30.0
+offset_right = 450.0
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_dcchx")
+theme_override_font_sizes/font_size = 28
+text = "score : 0"
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
